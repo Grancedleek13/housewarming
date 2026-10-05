@@ -1,7 +1,7 @@
 window.INVITE = {
   date: '10.10.2026',
   time: '21:00',
-  address: 'Реутов, Носовихинское шоссе 27, 4 подъезд, 713 квартира',
+  address: 'Реутов, Носовихинское шоссе 27, 4 подъезд, 10 этаж, 713 квартира',
   hosts: '',
   mapUrl: '',
   apiUrl: 'https://script.google.com/macros/s/AKfycbyedeZVloz0TsIsuGEKweLE1qMRuef_ad0iSu7kqZltjgCgrmX9UQE5Y7EFLj4IqxpJ/exec', // URL опубликованного Google Apps Script, заканчивается на /exec
@@ -19,3 +19,4 @@ window.INVITE = {
     {id:'dollar-mat', title:'Коврик доллар', category:'Для дома'}
   ]
 };
+
