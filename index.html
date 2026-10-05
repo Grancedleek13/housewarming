@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+  <title>НОВОСЕЛЬЕ — 10.10.2026</title>
+  <meta name="description" content="Приглашение на новоселье 10 октября.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css"><script defer src="config.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+<div class="video-background" aria-hidden="true"><img class="background-poster" src="assets/background-poster.jpg" alt=""><video id="background" src="assets/background.mp4" poster="assets/background-poster.jpg" autoplay muted loop playsinline webkit-playsinline preload="auto"></video><div class="video-shade"></div></div>
+<button id="video-start" class="video-start" type="button" hidden>Включить видео</button>
+<button id="sound" class="sound" type="button" aria-label="Включить звук" aria-pressed="false">Звук выключен</button>
+<main>
+  <section class="hero" aria-labelledby="title">
+    <div class="hero-copy"><p class="eyebrow">У НАС ТЕПЕРЬ СВОЙ УГОЛ</p><h1 id="title">НОВОСЕЛЬЕ</h1><p id="address" class="hero-address">Реутов, Носовихинское шоссе 27, 4 подъезд, 713 квартира</p><a id="map" target="_blank" rel="noopener noreferrer" hidden>Открыть карту</a><p id="hosts" hidden></p><a class="primary hero-button" href="#rsvp">Я буду!</a></div>
+    <div class="event-bar"><div><span class="meta-label">КОГДА</span><strong id="date">10.10.2026</strong></div><div><span class="meta-label">ВО СКОЛЬКО</span><strong id="time">21:00</strong></div></div>
+  </section>
+  <section id="rsvp" class="rsvp" aria-labelledby="rsvp-title">
+    <h2 id="rsvp-title">Зарегайся братух</h2>
+    <noscript><p>Для отправки заявки открой сайт в браузере с включённым JavaScript.</p></noscript>
+    <form id="invite-form" novalidate onsubmit="return false">
+      <label for="fullname">Буквы которые в паспорте</label><input id="fullname" name="fullName" autocomplete="name" maxlength="120" placeholder="Иванов Иван Иванович" required>
+      <div class="honeypot" aria-hidden="true"><label>Оставь пустым<input name="website" tabindex="-1" autocomplete="off"></label></div>
+      <h2 class="wishlist-heading">Че нам очень надо</h2>
+      <div id="gifts" class="gift-list" role="group" aria-label="Выбрать один подарок"><label class="gift-card"><input type="radio" name="giftId" value="blanket" required><span class="gift-check" aria-hidden="true"></span><strong>Тяжёлое одеяло</strong><span class="gift-status">Выбрать</span></label><label class="gift-card"><input type="radio" name="giftId" value="vacuum" required><span class="gift-check" aria-hidden="true"></span><strong>Пылесос</strong><span class="gift-status">Выбрать</span></label><label class="gift-card"><input type="radio" name="giftId" value="mirror" required><span class="gift-check" aria-hidden="true"></span><strong>Зеркало в ванную с подсветкой</strong><span class="gift-status">Выбрать</span></label><label class="gift-card"><input type="radio" name="giftId" value="neon" required><span class="gift-check" aria-hidden="true"></span><strong>Гибкая неоновая лента на стену</strong><span class="gift-status">Выбрать</span></label><label class="gift-card"><input type="radio" name="giftId" value="beanbag" required><span class="gift-check" aria-hidden="true"></span><strong>Кресло-мешок</strong><span class="gift-status">Выбрать</span></label><label class="gift-card"><input type="radio" name="giftId" value="hookah" required><span class="gift-check" aria-hidden="true"></span><strong>Кальян</strong><span class="gift-status">Выбрать</span></label><label class="gift-card"><input type="radio" name="giftId" value="window-robot" required><span class="gift-check" aria-hidden="true"></span><strong>Робот для мытья окон</strong><span class="gift-status">Выбрать</span></label><label class="gift-card"><input type="radio" name="giftId" value="coffee" required><span class="gift-check" aria-hidden="true"></span><strong>Капсульная кофемашина</strong><span class="gift-status">Выбрать</span></label><label class="gift-card"><input type="radio" name="giftId" value="dollar-mat" required><span class="gift-check" aria-hidden="true"></span><strong>Коврик доллар</strong><span class="gift-status">Выбрать</span></label></div>
+      <div class="confirmation"><p>Нажми, чтобы подтвердить бронирование</p><button class="primary" id="submit" type="submit">Подтвердить участие</button></div>
+      <p id="status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</main>
+<footer>Кого не будет - тот гей</footer>
+</body></html>
