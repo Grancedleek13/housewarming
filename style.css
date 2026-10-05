@@ -5,3 +5,6 @@
 
 .wishlist-note{margin:16px 0 0;color:var(--muted);font-size:14px;line-height:1.5}
 
+
+
+.success-dialog{width:calc(100% - 40px);max-width:480px;padding:32px;border:1px solid #ffffff40;border-radius:24px;background:#171717;color:#fff;text-align:center}.success-dialog::backdrop{background:#000000b3;backdrop-filter:blur(6px)}.success-dialog h2{font-size:36px;margin:0 0 16px}.success-dialog p{color:var(--muted);margin:0 0 24px}.success-dialog .primary{width:100%}

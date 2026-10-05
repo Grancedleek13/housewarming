@@ -16,7 +16,9 @@ window.INVITE = {
     {id:'hookah', title:'Кальян', category:'Для посиделок'},
     {id:'window-robot', title:'Робот для мытья окон', category:'Для чистых окон'},
     {id:'coffee', title:'Капсульная кофемашина', category:'Для доброго утра'},
-    {id:'dollar-mat', title:'Коврик доллар', category:'Для дома'}
+    {id:'dollar-mat', title:'Коврик доллар', category:'Для дома'},
+    {id:'own-gift', title:'Свой подарок', category:'На твой выбор'}
   ]
 };
+
 

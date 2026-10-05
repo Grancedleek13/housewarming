@@ -2,6 +2,8 @@
   'use strict';
   const cfg = window.INVITE, form = document.querySelector('#invite-form');
   const status = document.querySelector('#status'), submit = document.querySelector('#submit');
+  const successDialog=document.querySelector('#success-dialog');
+  document.querySelector('#success-close').addEventListener('click',()=>successDialog.close());
   let gifts = cfg.gifts.map(g => ({...g, reserved:false})), busy = false, pending = null;
   const configured = /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(cfg.apiUrl);
   const setStatus = (text, kind='info') => {status.textContent=text;status.dataset.kind=kind;};
@@ -39,7 +41,7 @@
       const card=document.createElement('label');card.className='gift-card'+(gift.reserved?' reserved':'');
       const radio=document.createElement('input');radio.type='radio';radio.name='giftId';radio.value=gift.id;radio.disabled=gift.reserved||busy;radio.checked=gift.id===selected&&!gift.reserved;radio.required=true;
       card.append(radio);const check=document.createElement('span');check.className='gift-check';check.setAttribute('aria-hidden','true');card.append(check);
-      for(const [tag,cls,value] of [['strong','',gift.title],['span','gift-status',gift.reserved?'Забронирован':'Свободен']]){
+      for(const [tag,cls,value] of [['strong','',gift.title],['span','gift-status',gift.id==='own-gift'?'На твой выбор':gift.reserved?'Забронирован':'Свободен']]){
         const el=document.createElement(tag);el.className=cls;el.textContent=value;card.append(el);
       }
       if(safeLink(gift.link)){const a=document.createElement('a');a.className='gift-link';a.href=gift.link;a.textContent='Посмотреть подарок';a.target='_blank';a.rel='noopener noreferrer';a.addEventListener('click',e=>e.stopPropagation());card.append(a);}
@@ -95,10 +97,13 @@
       await fetch(cfg.apiUrl,{method:'POST',mode:'no-cors',credentials:'omit',body:new URLSearchParams(pending)}).catch(()=>{});
       const result=await receipt(pending.requestId);
       if(!result.ok){pending=null;throw new Error(result.code==='TAKEN'?'Этот подарок уже забронировали. Выбери другой.':result.code==='INVALID'?'Проверь ФИО и выбранный подарок.':'Сервис пока не настроен. Напиши организаторам.');}
-      pending=null;setStatus('Готово! Участие подтверждено'+(giftId?', подарок закреплён за тобой.':'.')+' До встречи!','success');
+      pending=null;setStatus('Готово! Участие подтверждено'+(giftId==='own-gift'?'. Ждём тебя со своим подарком.':', подарок закреплён за тобой.')+' До встречи!','success');
+      document.querySelector('#success-message').textContent=giftId==='own-gift'?'Участие подтверждено. Приходи со своим подарком — до встречи!':'Участие подтверждено, подарок закреплён за тобой. До встречи на новоселье!';
+      if(!successDialog.open)successDialog.showModal();
       form.elements.fullName.value='';form.querySelectorAll('input[name=giftId]').forEach(el=>el.checked=false);
     }catch(e){setStatus(e.message,'error');}
     finally{busy=false;submit.disabled=false;submit.textContent='Подтвердить участие';form.elements.fullName.readOnly=false;render();refresh().catch(()=>{});}
   });
 })();
+
 
