@@ -47,23 +47,30 @@
     });
 
   }
-  function jsonp(params){
-    return new Promise((resolve,reject)=>{
-      const name='invite_'+crypto.randomUUID().replaceAll('-','');const script=document.createElement('script');
-      const cleanup=()=>{clearTimeout(timer);script.remove();delete window[name];};
-      const timer=setTimeout(()=>{cleanup();reject(new Error('Связь с сервисом недоступна.'));},15000);
-      window[name]=data=>{cleanup();resolve(data);};script.onerror=()=>{cleanup();reject(new Error('Не удалось загрузить данные.'));};
-      script.src=cfg.apiUrl+'?'+new URLSearchParams({...params,callback:name,t:Date.now()});document.body.append(script);
-    });
+  async function apiRead(params){
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),30000);
+    try{
+      // Public endpoint: omit Google account cookies to avoid account-specific redirects.
+      const response=await fetch(cfg.apiUrl+'?'+new URLSearchParams({...params,t:Date.now()}),{
+        method:'GET',mode:'cors',credentials:'omit',redirect:'follow',signal:controller.signal
+      });
+      if(!response.ok)throw new Error('Сервис ответил ошибкой '+response.status+'.');
+      return await response.json();
+    }catch(error){
+      if(error.name==='AbortError')throw new Error('Сервис долго отвечает. Попробуй ещё раз.');
+      if(error instanceof TypeError)throw new Error('Не удалось связаться с сервисом регистрации.');
+      throw error;
+    }finally{clearTimeout(timer);}
   }
   async function refresh(){
-    const data=await jsonp({action:'gifts'});
+    const data=await apiRead({action:'gifts'});
     if(!data.ok||!Array.isArray(data.gifts))throw new Error('Вишлист пока недоступен.');
     gifts=data.gifts;render();
   }
   async function receipt(id){
     for(let attempt=0;attempt<12;attempt++){
-      const result=await jsonp({action:'receipt',requestId:id});
+      const result=await apiRead({action:'receipt',requestId:id});
       if(result.found)return result;
       await new Promise(resolve=>setTimeout(resolve,1800));
     }
@@ -94,3 +101,4 @@
     finally{busy=false;submit.disabled=false;submit.textContent='Подтвердить участие';form.elements.fullName.readOnly=false;render();refresh().catch(()=>{});}
   });
 })();
+
